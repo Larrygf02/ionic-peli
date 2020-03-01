@@ -15,8 +15,12 @@ export class MovieService {
   private ejecutarQuery<T>( query: string) {
     query = URL + query
     query += `&api_key=${apiKey}&language=es&include_image_language=es`
-    console.log(query);
     return this.http.get<T>(query);
+  }
+
+  getPopulares() {
+    const query = '/discover/movie?sort_by=popularity.desc';
+    return this.ejecutarQuery<RespuestaMBD>(query)
   }
 
   getFeature() {
