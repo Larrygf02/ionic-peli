@@ -11,6 +11,7 @@ const apiKey = environment.apiKey
 export class MovieService {
 
   constructor(private http: HttpClient) { }
+  private popularesPage = 0;
 
   private ejecutarQuery<T>( query: string) {
     query = URL + query
@@ -19,7 +20,8 @@ export class MovieService {
   }
 
   getPopulares() {
-    const query = '/discover/movie?sort_by=popularity.desc';
+    this.popularesPage++;
+    const query = `/discover/movie?sort_by=popularity.desc&page=${this.popularesPage}`;
     return this.ejecutarQuery<RespuestaMBD>(query)
   }
 
