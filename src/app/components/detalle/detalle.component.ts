@@ -10,7 +10,7 @@ import { PeliculaDetalle } from '../../interfaces/interfaces';
 export class DetalleComponent implements OnInit {
 
   @Input() id;
-  pelicula: PeliculaDetalle
+  pelicula: PeliculaDetalle = {};
   constructor(private moviesService: MovieService) { }
 
   ngOnInit() {
