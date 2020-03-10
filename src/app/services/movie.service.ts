@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RespuestaMBD } from '../../interfaces/interfaces';
 import { environment } from '../../environments/environment';
+import { PeliculaDetalle, RespuestaCredits } from '../interfaces/interfaces';
 
 const URL = environment.url
 const apiKey = environment.apiKey
@@ -40,5 +41,13 @@ export class MovieService {
     const inicio = `${hoy.getFullYear()}-${mesString}-01`
     const fin = `${hoy.getFullYear()}-${mesString}-${ultimoDia}`
     return this.ejecutarQuery<RespuestaMBD>(`/discover/movie?primary_release_date.gte=${inicio}&primary_release_date.lte=${fin}`)
+  }
+
+  getPeliculaDetalle( id: string ) {
+    return this.ejecutarQuery<PeliculaDetalle>(`/movie/${id}?a=1`);
+  }
+
+  getActoresPelicula( id: string ) {
+    return this.ejecutarQuery<RespuestaCredits>(`/movie/${id}/credits?a=1`)
   }
 }
