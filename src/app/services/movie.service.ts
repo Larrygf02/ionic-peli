@@ -13,6 +13,7 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
   private popularesPage = 0;
+  generos: any[] = []
 
   private ejecutarQuery<T>( query: string) {
     query = URL + query
@@ -53,5 +54,15 @@ export class MovieService {
 
   getActoresPelicula( id: string ) {
     return this.ejecutarQuery<RespuestaCredits>(`/movie/${id}/credits?a=1`)
+  }
+
+  cargarGeneros(): Promise<any[]> {
+    return new Promise (resolve => {
+      this.ejecutarQuery(`/genre/movie/list?a=1`)
+        .subscribe(resp => {
+          this.generos = resp['genres']
+          resolve(this.generos)
+        })
+    })
   }
 }
