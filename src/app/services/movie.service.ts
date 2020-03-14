@@ -26,6 +26,10 @@ export class MovieService {
     return this.ejecutarQuery<RespuestaMBD>(query)
   }
 
+  buscarPeliculas(texto: string) {
+    return this.ejecutarQuery(`/search/movie?query=${ texto }`)
+  }
+
   getFeature() {
 
     const hoy = new Date()
