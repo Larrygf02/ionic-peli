@@ -11,7 +11,9 @@ export class DataLocalService {
   peliculas: PeliculaDetalle[] = []
 
   constructor(private storage: Storage,
-              public toastController: ToastController ) { }
+              public toastController: ToastController ) { 
+                this.cargarFavoritos()
+              }
 
   guardarPelicula(pelicula: PeliculaDetalle) {
     let existe = false;
@@ -39,5 +41,17 @@ export class DataLocalService {
       duration: 2000
     });
     toast.present()
+  }
+
+  async cargarFavoritos() {
+    const peliculas = await this.storage.get('peliculas')
+    this.peliculas = peliculas || [];
+    return peliculas;
+  }
+
+  async existePelicula(id) {
+    await this.cargarFavoritos()
+    const existe = this.peliculas.find(peli => peli.id === id)
+    return (existe) ? true: false;
   }
 }  
