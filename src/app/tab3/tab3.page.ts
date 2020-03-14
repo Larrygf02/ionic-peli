@@ -17,7 +17,11 @@ export class Tab3Page {
   constructor(private dataLocal: DataLocalService,
     private moviesService: MovieService) {}
   
-  async ngOnInit() {
+  ngOnInit() {
+
+  }
+
+  async ionViewWillEnter() {
     this.dataLocal.cargarFavoritos().then( resp => {
       this.peliculas = resp;
       this.cargarPeliculasGenero()
